@@ -1,0 +1,111 @@
+Process for line detection
+	- find edges by using Canny Edge Detector
+	- blur image using gaussian blur
+	- convert image to grayscale
+
+finished converting to grayscale
+finished blur image using gaussian blur - uses generic convolution
+	was troublesome trying to adjust kernel for edges
+added junit tests for all three grayscales and convolution effects
+
+
+1/21/2013
+	Canny algorithm mostly implemented, ran into issues:
+		- how to handle image edges
+		- finding strongest edge on gradient
+		- performing hysterysis
+		- building tests 
+1/28/2013
+	Canny algorithm implemented and tested
+	- issues
+		- fixing angles to point in the correct direction
+			- learned that the angles vary from 0 to 180, where in reality they vary from -90 to 90. Had to re-engineer my code to work correctly with this.
+			- figured out I was translating in the wrong pixel direction for two of my angles. This gave skewed results. Corrected the direction problem and
+			  it fixed the transformation of the image.
+			- figured out with hyserysis, it should run along the perpendicular angle rather than against the gradient. Fixed that to get better results.
+		- fixed strength to be based off a simple 0 - 255 values (maxing at 1020) rather than the pixel values. 1020 is a better max number than 4 * 0xFFFFFFFF.
+
+2/5/2013
+	Line detection working with perfectly drawn lines
+	-issues
+		accounting for varience in either direction
+		Top and bottom of line must be perfectly strait or cannot be recognized. 
+			Working on fixing this by adding a varience account to see if the bottoms and tops connect
+
+
+Final destination for project:
+	To play a tic tac toe game by using a white board as input through a camera. The user draws a tic tac toe board on the white board and places the x's while the 
+	computer plays and places the o's virtually.
+
+Project plan by Week
+Week 1:
+	Converting to grayscale and convolution effects
+week 2:
+	Refactor convolution effects
+	clean up excess files in svn
+	figure out what to use in project ( correctness or robustness )
+	figure out project plan up through week 6
+	Implement and test Canny algorithm
+week 3:
+	Refactor canny algorithm
+	Make tests for components of the canny algorithm
+week 4:
+Both target and threshold are for fixed sizes with no skewing
+	Threshold: Recognize and give coordinates of a horizontal or vertical line
+			Locate a collection of "on" pixels
+			Determine if it is straight line
+			Determine if it is vertical or horizontal
+			Postponed - Determine if it is diagnal
+			Get the starting and ending coordinates of the line
+	Target: Recognize tic tac toe board and give coordinates
+	Stretch: Be able to recognize a tic tac toe board of variable size and skewed lines up to either 5 or 10 degrees in either direction
+week 5:
+	finish line detection
+		make line detection work with a little varience in angles and line abnormalities
+		be able to trace tops and bottoms of line with varience
+	be able to locate a tic tac toe board in an image
+		Give same coordinates just like for line - top left x,y and bottom right x,y
+	add game logic
+		to determine game is over
+		to determine whose turn it is
+		to check for invalid moves
+		handle errors - not super gracefully but enough to show an error message
+
+	Threshold: 	finish line detection
+			locate fixed size, perfectly drawn tic tac toe board
+	Target: 	game logic
+			Recognize X's inside of the spaces of the tic tac toe board
+week 6: Feb 19
+	Recognize tic tac toe board
+		- Recognize projector shown board
+		- get coordinates of lines in board
+			- have coordinates of each of the 9 squares
+	recognize X drawn in tic tac toe board
+		- give coordinates of x (top left and bottom right)
+		- recognize in confined space (eg. inside the coordinates of a tic tac toe space)
+week 7: Feb 26
+	Build game logic around drawn tic tac toe board and drawn x's
+		- play game
+			- have some start game button
+			- respond to moves from the player
+		- draw circles in the tic tac toe board for computer's turn
+	Recognize Tic tac toe board being projected onto whiteboard
+	Recognize X drawn on whiteboard
+week 8: Mar 5
+	polish program
+		- make sure works smoothly
+		- Fix recognizing tic tac toe board and X's if needed
+		- test thoroughly with actual projector and white board
+week 9: Mar 12?
+	prepare for presentation
+	polish program
+
+
+Before presentation, meet with Matt for "Acceptence Test"
+
+
+
+
+
+
+
